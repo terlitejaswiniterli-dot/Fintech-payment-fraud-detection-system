@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FraudGuard — Secure Payments</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark">FG</div><div><strong>FraudGuard</strong><span>Secure payments, protected every time</span></div></div>
+    <div class="top-actions"><span class="network-dot"></span><span>Payment network secure</span><button class="profile">A</button></div>
+  </header>
+
+  <main>
+    <nav class="nav-tabs" aria-label="Main navigation">
+      <button class="tab active" data-view="pay">Pay</button>
+      <button class="tab" data-view="transactions">Transactions</button>
+      <button class="tab" data-view="security">How it works</button>
+      <button class="tab ops-tab" data-view="ops">⚙ Ops Console</button>
+    </nav>
+
+    <!-- PAY -->
+    <section class="view active" id="view-pay">
+      <div class="hero"><div><p class="eyebrow">FAST • SAFE • SMART</p><h1>Send money with confidence.</h1><p>FraudGuard checks every payment before authorization and protects you from duplicate charges.</p></div><div class="shield-hero">🛡️</div></div>
+      <div class="pay-layout">
+        <div class="card payment-card">
+          <div class="card-title"><div><h2>Send Money</h2><p>Enter the payment details below.</p></div><span class="secure-badge">🔒 Secure</span></div>
+          <form id="pay-form">
+            <label for="recipient-search">Pay to</label>
+            <div class="recipient-picker">
+              <div class="search-wrap"><span>🔍</span><input id="recipient-search" type="text" autocomplete="off" placeholder="Search name or user ID…" aria-label="Search recipient" /></div>
+              <div id="recipient-results" class="recipient-results" role="listbox"></div>
+              <div id="selected-recipient" class="selected-recipient"><span>👤</span><div><b>Select a recipient</b><small>Search and choose a person to pay</small></div></div>
+            </div>
+            <input type="hidden" id="user_id" name="user_id" value="">
+            <label for="amount">Amount</label>
+            <div class="amount-wrap"><span>₹</span><input type="number" id="amount" value="2500" min="1" step="1" required /></div>
+            <label for="merchant">Merchant</label>
+            <select id="merchant"><option>TrustedMart</option><option>Unknown Merchant</option><option>QuickCash Traders</option></select>
+            <div class="auto-info"><div>📱 <span>Device</span><strong id="device-display">Recognized device</strong></div><div>📍 <span>Location</span><strong id="location-display">Bengaluru</strong></div></div>
+            <button type="submit" class="primary big" id="submit-btn">🔒 Pay Securely</button>
+            <p class="form-note">Your payment is automatically screened for fraud before authorization.</p>
+          </form>
+          <input type="hidden" id="device_id" value="dev-iphone-14"><input type="hidden" id="location" value="BLR"><input type="hidden" id="idem_key">
+        </div>
+        <div class="card result-card" id="result-card">
+          <div class="card-title"><div><h2>Payment Status</h2><p id="result-subtitle">Your result will appear here.</p></div></div>
+          <div id="result-empty" class="result-empty"><div class="empty-icon">🛡️</div><h3>Ready when you are</h3><p>Submit a payment to see the security decision, explanation and transaction status.</p></div>
+          <div id="result-body" style="display:none"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRANSACTIONS -->
+    <section class="view" id="view-transactions">
+      <div class="page-heading"><div><p class="eyebrow">YOUR ACTIVITY</p><h1>Transactions</h1><p>Track your recent payments and security decisions.</p></div><button class="ghost" id="refresh-transactions">↻ Refresh</button></div>
+      <div class="stats-row"><div class="stat-card"><span>Successful</span><strong id="user-approved">—</strong></div><div class="stat-card"><span>Pending</span><strong id="user-pending">—</strong></div><div class="stat-card"><span>Blocked</span><strong id="user-blocked">—</strong></div></div>
+      <div class="card"><div class="section-title"><h2>Recent payments</h2><span class="live-label">● Live</span></div><div class="transaction-list" id="transaction-list"><div class="loading">Loading transactions…</div></div></div>
+    </section>
+
+    <!-- SECURITY -->
+    <section class="view" id="view-security">
+      <div class="page-heading"><div><p class="eyebrow">SECURITY FIRST</p><h1>How FraudGuard protects you</h1><p>Simple for users. Powerful underneath.</p></div></div>
+      <div class="security-grid">
+        <div class="security-card"><div class="step">01</div><div class="security-icon">🔒</div><h3>Prevent duplicate payments</h3><p>Every request gets a unique Idempotency Key. Sending the same request again returns the original result instead of creating another charge.</p></div>
+        <div class="security-card"><div class="step">02</div><div class="security-icon">🛡️</div><h3>Screen every payment</h3><p>Rules and a lightweight ML model analyze amount, device, location, velocity and merchant risk before authorization.</p></div>
+        <div class="security-card"><div class="step">03</div><div class="security-icon">⚖️</div><h3>Choose the right action</h3><div class="risk-scale"><span class="low">0–30<br><b>Approve</b></span><span class="medium">31–70<br><b>Verify</b></span><span class="high">71–100<br><b>Block</b></span></div></div>
+        <div class="security-card"><div class="step">04</div><div class="security-icon">🔄</div><h3>Recover from failures</h3><p>If settlement goes offline, approved payments safely move to pending settlement. Recovery and reconciliation complete them later.</p></div>
+      </div>
+      <div class="flow-card"><h2>Payment journey</h2><div class="flow"><span>Send</span><i>→</i><span>Idempotency</span><i>→</i><span>Fraud Check</span><i>→</i><span>Decision</span><i>→</i><span>Authorization</span><i>→</i><span>Settlement</span></div></div>
+    </section>
+
+    <!-- OPS -->
+    <section class="view" id="view-ops">
+      <div class="page-heading"><div><p class="eyebrow">ADMIN • HACKATHON DEMO</p><h1>Ops Console</h1><p>Monitor fraud decisions, ledger state and settlement recovery.</p></div><div class="ops-status" id="outage-status"><span class="status-dot"></span> Settlement network operational</div></div>
+      <div class="ops-actions"><button class="ghost danger-outline" id="toggle-outage">Simulate settlement outage</button><button class="primary" id="reconcile-now">↻ Run reconciliation</button></div>
+      <div class="stats-row four"><div class="stat-card success"><span>Approved</span><strong id="count-approved">0</strong></div><div class="stat-card warning"><span>Review</span><strong id="count-review">0</strong></div><div class="stat-card danger"><span>Declined</span><strong id="count-declined">0</strong></div><div class="stat-card pending"><span>Pending</span><strong id="count-pending">0</strong></div></div>
+      <div class="ops-grid">
+        <div class="card"><div class="section-title"><h2>Transaction Ledger</h2><span class="live-label">● Live</span></div><div class="table-wrap"><table class="ledger-table" id="ledger-table"><thead><tr><th>Transaction</th><th>User</th><th>Amount</th><th>Risk</th><th>Decision</th><th>State</th><th>Attempts</th><th>Time</th></tr></thead><tbody></tbody></table></div></div>
+        <div class="card"><div class="section-title"><h2>Reconciliation feed</h2></div><ul class="feed" id="recon-feed"><li>No reconciliation activity yet.</li></ul></div>
+      </div>
+      <div class="ops-grid lower"><div class="card"><div class="section-title"><h2>Idempotency Test</h2><span>Exactly-once processing</span></div><div class="demo-box"><div class="demo-icon">🔐</div><h3>Test duplicate protection</h3><p>Make one payment in the Pay tab, then resend the exact same request.</p><button class="ghost" id="ops-replay">Resend last payment</button><div id="replay-result" class="small-result"></div></div></div><div class="card"><div class="section-title"><h2>System protection</h2></div><div class="protection"><div><span>Idempotency</span><b>ACTIVE</b></div><div><span>Fraud screening</span><b>ACTIVE</b></div><div><span>Risk policy</span><b>0–100</b></div><div><span>Reconciliation</span><b>AUTO-RETRY</b></div></div></div></div>
+    </section>
+  </main>
+  <footer><span>🛡️ FraudGuard</span><span>Fault-tolerant payment authorization • Inline fraud screening • Exactly-once processing</span></footer>
+</div>
+<script src="/app.js"></script>
+</body>
+</html>
